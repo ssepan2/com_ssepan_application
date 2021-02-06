@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group/>
+        <group name="JavaDesktopTemplate">
+            <file>file:/C:/Users/ssepan/Documents/NetBeansProjects/Com.Ssepan.Application/src/com/ssepan/application/mvc/SettingsBase.java</file>
+            <file>file:/C:/Users/ssepan/Documents/NetBeansProjects/Com.Ssepan.Application/src/com/ssepan/application/mvc/SettingsController.java</file>
+            <file>file:/C:/Users/ssepan/Documents/NetBeansProjects/Com.Ssepan.Application/src/com/ssepan/application/interfaces/ISettings.java</file>
+            <file>file:/C:/Users/ssepan/Documents/NetBeansProjects/Com.Ssepan.Application/src/com/ssepan/application/mvvm/ViewModelBase.java</file>
+        </group>
+        <group name="Com_Ssepan_Mvc">
+            <file>file:/home/ssepan/Documents/NetBeansProjects/Com.Ssepan.Application/src/com/ssepan/application/mvvm/ViewModelBase.java</file>
+        </group>
+    </open-files>
+</project-private>

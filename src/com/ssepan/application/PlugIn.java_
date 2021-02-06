@@ -1,0 +1,106 @@
+package com.ssepan.application;
+
+import com.ssepan.utility.*;
+
+public class PlugIn
+{
+	public static final String PLUGIN_FILE_MASK = "*.dll";
+
+	public static <TInterface> java.util.ArrayList<TInterface> GetInterfacesImplementedAtPath(String plugInPath, String plugInFilter, String[] ignoreCommonLibraries)
+	{
+		java.util.ArrayList<TInterface> returnValue = null;
+		String[] filepaths = null;
+		Iterable<TInterface> matchingClasses = null;
+		try
+		{
+			returnValue = new java.util.ArrayList<>();
+
+			filepaths = Directory.GetFiles(plugInPath, plugInFilter);
+			for (String filepath : filepaths)
+			{
+				//try-catch individual attempts, so one bad plugin does not prevent loading of good plugins
+				try
+				{
+					//Note: Trap references to common assembly before calling this method. 
+					// Calls to IsAssignableFrom will fail for valid implementation classes if previously called 
+					// with class containing interface *definition* and *base class*. (Or maybe its because its a 
+					// referenced class already loaded by host.)
+					if (!ignoreCommonLibraries.Contains(Path.GetFileNameWithoutExtension(filepath)))
+					{
+						Assembly assembly = GetAssembly(filepath);
+						matchingClasses = Ssepan.Application.PlugIn.<TInterface>InstancesOf(assembly);
+						returnValue.addAll(matchingClasses);
+					}
+				}
+				catch (RuntimeException ex)
+				{
+					Log.write(ex, Level.WARNING);
+				}
+			}
+		}
+		catch (RuntimeException ex)
+		{
+			Log.write(ex, Level.WARNING);
+		}
+		return returnValue;
+	}
+
+	/** 
+	 
+	 based on code by 'wrack' on http://www.neowin.net/forum/topic/1110005-c-better-more-efficient-way-to-load-dll-dynamically-get-interface-instance/page__pid__595224399#entry595224399
+	 
+	 @param filepath
+	 @return 
+	*/
+	public static Assembly GetAssembly(String filepath)
+	{
+		Assembly returnValue = null;
+
+		try
+		{
+			if (Path.IsPathRooted(filepath)) //suggested by Aethec on http://www.neowin.net/forum/topic/1110005-c-better-more-efficient-way-to-load-dll-dynamically-get-interface-instance/page__pid__595224399#entry595224399
+			{
+				returnValue = Assembly.LoadFrom(filepath);
+			}
+			else
+			{
+				returnValue = Assembly.LoadFrom(Path.Combine((new java.io.File(Assembly.GetExecutingAssembly().Location)).getParent(), filepath));
+			}
+
+			if (returnValue == null)
+			{
+				throw new RuntimeException(String.format("Unable to load assembly: %1$s", filepath));
+			}
+		}
+		catch (RuntimeException ex)
+		{
+			Log.write(ex, Level.WARNING);
+		}
+
+		return returnValue;
+	}
+
+	/** 
+	 Trap references to common assembly before calling this method.
+	 *based on* code by Matt Hamilton on http://madprops.org/about-matt-hamilton/
+	 
+	 <typeparam name="TInterface"></typeparam>
+	 @return 
+	*/
+	public static <TInterface> Iterable<TInterface> InstancesOf(Assembly assembly)
+	{
+		Iterable<TInterface> returnValue = null;
+		try
+		{
+			java.lang.Class interfaceType = TInterface.class;
+			Object tempVar = Activator.CreateInstance(exportedType);
+//C# TO JAVA CONVERTER TODO TASK: There is no Java equivalent to LINQ queries:
+			returnValue = from exportedType in assembly.GetExportedTypes() where (exportedType.IsClass && !exportedType.IsInterface && !exportedType.IsAbstract && interfaceType.isAssignableFrom(exportedType) && exportedType.GetConstructor(java.lang.Class.EmptyTypes) != null) select (TInterface)((tempVar instanceof TInterface) ? tempVar : null); //Note:will fail for valid implementation classes if previously called with class containing interface *definition* and *base class*. (Or maybe its because its a referenced class already loaded by host.) Trap references to common assembly before calling this method.
+		}
+		catch (RuntimeException ex)
+		{
+			Log.write(ex, Level.WARNING);
+		}
+		return returnValue;
+	}
+}
