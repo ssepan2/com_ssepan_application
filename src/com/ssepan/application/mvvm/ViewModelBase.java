@@ -39,6 +39,7 @@ public  class ViewModelBase
         @param ctlErrorMessage
         @param ctlProgressBar
         @param ctlActionIcon
+        @param ctlStatusBar
         @param objImage
      */
     public static void StartProgressBar(
@@ -52,13 +53,13 @@ public  class ViewModelBase
         JLabel ctlErrorMessage,
         JProgressBar ctlProgressBar,
         JButton ctlActionIcon,
+        JPanel ctlStatusBar,
         javax.swing.Icon objImage
     )
     {
         try
         {
-            ctlProgressBar.setVisible(true);
-            ctlProgressBar.setEnabled(true);
+            //ctlProgressBar.setEnabled(true);
 
             if (isMarqueeProgressBarStyle) {
                  //marquee
@@ -112,7 +113,6 @@ public  class ViewModelBase
                 ctlActionIcon.setIcon(objImage);
              
                 ctlActionIcon.setToolTipText(statusMessage);
-                ctlActionIcon.setVisible(true);
             }
         }
         catch (RuntimeException ex)
@@ -121,9 +121,9 @@ public  class ViewModelBase
             throw ex;
         }
         finally {
+
             //give the app time to draw the eye-candy, even if its only for an instant
-          Thread.yield();
-          //Common.DoEvents();
+            ctlStatusBar.paint(ctlStatusBar.getGraphics());
         }
     }
     
@@ -135,8 +135,9 @@ public  class ViewModelBase
     @param isMarqueeProgressBarStyle Boolean
     @param isCountProgressbar Boolean
     @param iProgressBarValue LongInt. UpdateProgressBar does not manage the value, other than checking that it is within the range, and adjusting the Max for counting mode.
-    @param ctlStatusMessage">TLabel
-    @param ctlProgressBar">TProgressBar
+    @param ctlStatusMessage TLabel
+    @param ctlProgressBar TProgressBar
+    @param ctlStatusBar JPanel
      */
     public static void UpdateProgressBar
     (
@@ -145,7 +146,8 @@ public  class ViewModelBase
         Boolean isCountProgressbar,
         Integer iProgressBarValue, 
         JLabel ctlStatusMessage, 
-        JProgressBar ctlProgressBar
+        JProgressBar ctlProgressBar,
+        JPanel ctlStatusBar
     )
     {
         try
@@ -181,9 +183,8 @@ public  class ViewModelBase
         }
         finally {
 
-          //give the app time to draw the eye-candy, even if its only for an instant
-          Thread.yield();
-          //Common.DoEvents();
+            //give the app time to draw the eye-candy, even if its only for an instant
+            ctlStatusBar.paint(ctlStatusBar.getGraphics());
         }
     }
 
@@ -194,13 +195,15 @@ public  class ViewModelBase
     @param serrorMessage String
     @param ctlStatusMessage JLabel
     @param ctlErrorMessage JLabel
+    @param ctlStatusBar
      */
     public static void UpdateStatusBarMessages
     (
         String statusMessage,
         String errorMessage,
         JLabel ctlStatusMessage, 
-        JLabel ctlErrorMessage
+        JLabel ctlErrorMessage,
+        JPanel ctlStatusBar
     )
     {
         try {
@@ -225,9 +228,9 @@ public  class ViewModelBase
             throw ex;
         }
         finally {
-          //give the app time to draw the eye-candy, even if its only for an instant
-          Thread.yield();
-          //Common.DoEvents();
+
+            //give the app time to draw the eye-candy, even if its only for an instant
+            ctlStatusBar.paint(ctlStatusBar.getGraphics());
         }
     }
 
@@ -241,6 +244,7 @@ public  class ViewModelBase
     @param ctlErrorMessage
     @param ctlProgressBar
     @param ctlActionIcon
+    @param ctlStatusBar
     */
     public static void StopProgressBar(
             String statusMessage, 
@@ -248,7 +252,8 @@ public  class ViewModelBase
             JLabel ctlStatusMessage, 
             JLabel ctlErrorMessage,
             JProgressBar ctlProgressBar,
-            JButton ctlActionIcon
+            JButton ctlActionIcon,
+            JPanel ctlStatusBar
     )
     {
         try
@@ -271,22 +276,20 @@ public  class ViewModelBase
           //sync
           ctlErrorMessage.setToolTipText(ctlErrorMessage.getText());
 
-          ctlProgressBar.setEnabled(false);
-          ctlProgressBar.setVisible(false);
-
-          ctlActionIcon.setVisible(false);
         }
         catch (RuntimeException ex) {
             Log.write(ex, Level.WARNING);
             throw ex;
         }
         finally {
-           ctlProgressBar.setEnabled(false);
-           ctlProgressBar.setVisible(false);
+           //ctlProgressBar.setEnabled(false);
+            ctlProgressBar.setIndeterminate(false);
+            ctlProgressBar.setValue(0);
+            
+            ctlActionIcon.setIcon(null);
 
-          //give the app time to draw the eye-candy, even if its only for an instant
-          Thread.yield();
-          //Common.DoEvents();
+            //give the app time to draw the eye-candy, even if its only for an instant
+            ctlStatusBar.paint(ctlStatusBar.getGraphics());
         }
     }
 // </editor-fold>
