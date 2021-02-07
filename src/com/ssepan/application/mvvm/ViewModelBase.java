@@ -7,6 +7,10 @@ import java.util.logging.*;
 /**
  *
  * @author ssepan
+ * 
+ * Don't let the name mislead you. This java class is a vestige of the viewmodel code that it was modeled after
+ * and a placeholder for possible improvements.
+ * 
  */
 public  class ViewModelBase
     //extends JComponent
