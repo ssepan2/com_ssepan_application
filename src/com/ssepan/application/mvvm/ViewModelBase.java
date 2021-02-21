@@ -135,7 +135,7 @@ public  class ViewModelBase
     /**
      * Update percentage changes.
      *
-    @param sStatusMessage String. If Null, do nothing, otherwise update.</param>
+    @param sStatusMessage String. If Null, do nothing, otherwise update.
     @param isMarqueeProgressBarStyle Boolean
     @param isCountProgressbar Boolean
     @param iProgressBarValue LongInt. UpdateProgressBar does not manage the value, other than checking that it is within the range, and adjusting the Max for counting mode.
