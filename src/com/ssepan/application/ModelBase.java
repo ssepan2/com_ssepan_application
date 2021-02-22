@@ -2,7 +2,9 @@ package com.ssepan.application;
 
 import java.beans.*;
 import java.io.*;
+import java.util.logging.Level;
 import javax.swing.JComponent;
+import com.ssepan.utility.*;
 
 /**
  *
@@ -14,20 +16,29 @@ public class ModelBase
     // <editor-fold defaultstate="collapsed" desc="Declarations">
     protected /*final*/ PropertyChangeSupport propertyChangeSupport;
     //protected /*final*/ VetoableChangeSupport vetoableChangeSupport;
-    // </editor-fold>
     
     
     final String KEY_NEW = "(new)";
+    // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Constructors">
     public ModelBase()
     {
-        this.propertyChangeSupport = new PropertyChangeSupport(this);
-        //this.vetoableChangeSupport = new VetoableChangeSupport(this);
-        
-        Dirty = false;
-        Key = KEY_NEW;
+        String sStatusMessage="";
+        String sErrorMessage="";
 
+        try {
+            this.propertyChangeSupport = new PropertyChangeSupport(this);
+            //this.vetoableChangeSupport = new VetoableChangeSupport(this);
+
+            Dirty = false;
+            Key = KEY_NEW;
+        } catch (Exception ex) {
+            //sErrorMessage=ex.getMessage();
+            Log.write(ex,Level.ALL);
+        } finally {
+            //always do this
+        }
     }
     // </editor-fold>
     
@@ -38,29 +49,77 @@ public class ModelBase
     private String Key;
     public String getKey()
     {
-        return Key;
+        String sStatusMessage="";
+        String sErrorMessage="";
+        String returnValue="";
+
+        try {
+            returnValue=Key;
+        } catch (Exception ex) {
+            //sErrorMessage=ex.getMessage();
+            Log.write(ex,Level.ALL);
+        } finally {
+            //always do this
+
+        }
+        return returnValue;
     }
     public void setKey(String value)// throws PropertyVetoException
     {
-        KeyOld = Key;
-        //vetoableChangeSupport.fireVetoableChange("Key", KeyOld, value);
-        Key = value;
-        propertyChangeSupport.firePropertyChange("Key", Key, value);
-        setDirty(true);
+        String sStatusMessage="";
+        String sErrorMessage="";
+
+        try {
+            KeyOld = Key;
+            //vetoableChangeSupport.fireVetoableChange("Key", KeyOld, value);
+            Key = value;
+            propertyChangeSupport.firePropertyChange("Key", KeyOld, Key);
+            setDirty(true);
+        } catch (Exception ex) {
+            //sErrorMessage=ex.getMessage();
+            Log.write(ex,Level.ALL);
+        } finally {
+            //always do this
+
+        }
     }
 
     private Boolean DirtyOld;
     private Boolean Dirty;
     public Boolean isDirty()
     {
-        return Dirty;
+        String sStatusMessage="";
+        String sErrorMessage="";
+        Boolean returnValue=false;
+
+        try {
+            returnValue=Dirty;
+        } catch (Exception ex) {
+            //sErrorMessage=ex.getMessage();
+            Log.write(ex,Level.ALL);
+        } finally {
+            //always do this
+
+        }
+        return returnValue;
     }
     public void setDirty(Boolean value)// throws PropertyVetoException
     {
-        DirtyOld = Dirty;
-        //vetoableChangeSupport.fireVetoableChange("Dirty", DirtyOld, value);
-        Dirty = value;
-        propertyChangeSupport.firePropertyChange("Dirty", Dirty, value);
+        String sStatusMessage="";
+        String sErrorMessage="";
+
+        try {
+            DirtyOld = Dirty;
+            //vetoableChangeSupport.fireVetoableChange("Dirty", DirtyOld, value);
+            Dirty = value;
+            propertyChangeSupport.firePropertyChange("Dirty", DirtyOld, Dirty);
+        } catch (Exception ex) {
+            //sErrorMessage=ex.getMessage();
+            Log.write(ex,Level.ALL);
+        } finally {
+            //always do this
+
+        }
     }
     // </editor-fold>
 
