@@ -18,7 +18,7 @@ public class ModelBase
     //protected /*final*/ VetoableChangeSupport vetoableChangeSupport;
     
     
-    final String KEY_NEW = "(new)";
+    public final String KEY_NEW = "(new)";
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Constructors">
@@ -31,8 +31,8 @@ public class ModelBase
             this.propertyChangeSupport = new PropertyChangeSupport(this);
             //this.vetoableChangeSupport = new VetoableChangeSupport(this);
 
-            Dirty = false;
-            Key = KEY_NEW;
+            //Key = KEY_NEW;
+            //Dirty = false;
         } catch (Exception ex) {
             //sErrorMessage=ex.getMessage();
             Log.write(ex,Level.ALL);
@@ -45,8 +45,8 @@ public class ModelBase
     // <editor-fold defaultstate="collapsed" desc="Properties">
     //Note: "Default serialization will not serialize 'transient' and 'static' fields."
 
-    private String KeyOld;
-    private String Key;
+    private String KeyOld = "";//KEY_NEW;
+    private String Key = "";//KEY_NEW;
     public String getKey()
     {
         String sStatusMessage="";
@@ -84,8 +84,8 @@ public class ModelBase
         }
     }
 
-    private Boolean DirtyOld;
-    private Boolean Dirty;
+    private Boolean DirtyOld = false;
+    private Boolean Dirty = false;
     public Boolean isDirty()
     {
         String sStatusMessage="";
@@ -112,6 +112,7 @@ public class ModelBase
             DirtyOld = Dirty;
             //vetoableChangeSupport.fireVetoableChange("Dirty", DirtyOld, value);
             Dirty = value;
+            System.out.println(String.format("setDirty %s '%s' '%s'","Dirty", DirtyOld, Dirty));
             propertyChangeSupport.firePropertyChange("Dirty", DirtyOld, Dirty);
         } catch (Exception ex) {
             //sErrorMessage=ex.getMessage();
