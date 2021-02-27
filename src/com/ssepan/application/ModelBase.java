@@ -2,9 +2,12 @@ package com.ssepan.application;
 
 import java.beans.*;
 import java.io.*;
+//import java.io.File;
 import java.util.logging.Level;
 import javax.swing.JComponent;
 import com.ssepan.utility.*;
+//NOTE:may reference libini4j-java
+import org.ini4j.*;//https://ourcodeworld.com/articles/read/839/how-to-read-parse-from-and-write-to-ini-files-easily-in-java
 
 /**
  *
@@ -18,7 +21,7 @@ public class ModelBase
     //protected /*final*/ VetoableChangeSupport vetoableChangeSupport;
     
     
-    public final String KEY_NEW = "(new)";
+    public static String KEY_NEW = "(new)";
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Constructors">
@@ -31,8 +34,8 @@ public class ModelBase
             this.propertyChangeSupport = new PropertyChangeSupport(this);
             //this.vetoableChangeSupport = new VetoableChangeSupport(this);
 
-            //Key = KEY_NEW;
-            //Dirty = false;
+            Key = KEY_NEW;
+            Dirty = false;
         } catch (Exception ex) {
             //sErrorMessage=ex.getMessage();
             Log.write(ex,Level.ALL);
@@ -112,7 +115,7 @@ public class ModelBase
             DirtyOld = Dirty;
             //vetoableChangeSupport.fireVetoableChange("Dirty", DirtyOld, value);
             Dirty = value;
-            System.out.println(String.format("setDirty %s '%s' '%s'","Dirty", DirtyOld, Dirty));
+            //System.out.println(String.format("setDirty %s '%s' '%s'","Dirty", DirtyOld, Dirty));
             propertyChangeSupport.firePropertyChange("Dirty", DirtyOld, Dirty);
         } catch (Exception ex) {
             //sErrorMessage=ex.getMessage();
@@ -210,5 +213,42 @@ public class ModelBase
         
         return returnValue;
     }
-//    // </editor-fold>
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="INI IO">
+    public static Boolean WriteIni
+    (
+        String filepath,
+        ModelBase model
+    ) 
+        throws FileNotFoundException
+    {
+//        Wini ini = new Wini(new File("C:\\Users\\sdkca\\Desktop\\myinifile.ini"));
+//
+//        ini.put("block_name", "property_name", "value");
+//        ini.put("block_name", "property_name_2", 45.6);
+//        ini.store();
+        
+        return true;
+    }
+
+    
+    public static Boolean ReadIni
+    (
+        String filepath,
+        ModelBase model
+    ) 
+        throws FileNotFoundException
+    {
+//        Wini ini = new Wini(new File("C:\\Users\\sdkca\\Desktop\\myinifile.ini"));
+//        
+//        int age = ini.get("owner", "age", int.class);
+//        double height = ini.get("owner", "height", double.class);
+//        String server = ini.get("database", "server");
+
+        
+        return true;
+    }
+
+    // </editor-fold>
 }
