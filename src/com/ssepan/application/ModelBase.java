@@ -34,8 +34,8 @@ public class ModelBase
             this.propertyChangeSupport = new PropertyChangeSupport(this);
             //this.vetoableChangeSupport = new VetoableChangeSupport(this);
 
-            Key = KEY_NEW;
             Dirty = false;
+            //Key = KEY_NEW;//NOTE:if set here, will not trigger change when set in refersh in new
         } catch (Exception ex) {
             //sErrorMessage=ex.getMessage();
             Log.write(ex,Level.ALL);
@@ -78,6 +78,7 @@ public class ModelBase
             Key = value;
             propertyChangeSupport.firePropertyChange("Key", KeyOld, Key);
             setDirty(true);
+            System.out.println(String.format("setKey: before='%s', after='%s'",KeyOld,Key));
         } catch (Exception ex) {
             //sErrorMessage=ex.getMessage();
             Log.write(ex,Level.ALL);
@@ -115,8 +116,8 @@ public class ModelBase
             DirtyOld = Dirty;
             //vetoableChangeSupport.fireVetoableChange("Dirty", DirtyOld, value);
             Dirty = value;
-            //System.out.println(String.format("setDirty %s '%s' '%s'","Dirty", DirtyOld, Dirty));
             propertyChangeSupport.firePropertyChange("Dirty", DirtyOld, Dirty);
+            System.out.println(String.format("setSomeBooleanField: before='%s', after='%s'",DirtyOld.toString(),Dirty.toString()));
         } catch (Exception ex) {
             //sErrorMessage=ex.getMessage();
             Log.write(ex,Level.ALL);
