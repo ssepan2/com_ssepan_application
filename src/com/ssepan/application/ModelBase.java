@@ -106,7 +106,7 @@ public class ModelBase
         }
         return returnValue;
     }
-    protected void setDirty(Boolean value)
+    public void setDirty(Boolean value)
     {
         String sStatusMessage="";
         String sErrorMessage="";
@@ -127,12 +127,10 @@ public class ModelBase
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="PropertyChangeSupport">
-        protected void notifyPropertyChanged(String propertyName ) {
-
+        protected void notifyPropertyChanged(String propertyName) {
           String sErrorMessage, formatResult;
 
           try {
-
                //formatResult=String.format("PropertyChanged firing: '%s'",propertyName);
                //Sytem.out.println(formatResult);
 
@@ -142,29 +140,25 @@ public class ModelBase
                 //sErrorMessage=ex.getMessage();
                 Log.write(ex,Level.ALL);
              } finally {
-
                 //formatResult=String.format("PropertyChanged fired: '%s'",propertyName);
                 //Sytem.out.println(formatResult);
              };
         };
 
         public void addHandler(IPropertyChanged f) {
-
           String sErrorMessage, formatResult;
-
           
             try {
-              //String.format(formatResult,"Handlers.size() (before): '%d'",Handlers.size());
-              //Sytem.out.println(formatResult);
+              //formatResult=String.format("Handlers.size() (before): '%d'",Handlers.size());
+              //System.out.println(formatResult);
 
               //f("Key");
               if (Handlers.indexOf(f) == -1) {
-
                    Handlers.add(f);
               };
 
               //formatResult=String.format("Handlers.size() (after): '%d'",Handlers.size());
-              //Sytem.out.println(formatResult);
+              //System.out.println(formatResult);
             } catch (Exception ex) {
                 //sErrorMessage=ex.getMessage();
                 Log.write(ex,Level.ALL);
@@ -174,23 +168,20 @@ public class ModelBase
         };
 
         public void removeHandler(IPropertyChanged f) {
-
             String sErrorMessage, formatResult;
             IPropertyChanged extracted;
             
             try {
-                //String.format(formatResult,"Handlers.length (before): '%d'",Handlers.length);
-                //Sytem.out.println(formatResult);
+                //formatResult=String.format("Handlers.size() (before): '%d'",Handlers.size());
+                //System.out.println(formatResult);
 
                 extracted = Handlers.remove(Handlers.indexOf(f));
                 if (extracted==null) {
-
-                  formatResult=String.format("item not extracted from Handlers: '%d'",Handlers.size());
-                  System.out.println(formatResult);
+                  //formatResult=String.format("item not extracted from Handlers: '%d'",Handlers.size());
+                  //System.out.println(formatResult);
                 } else {
-
-                  //String.format(formatResult,"Handlers.size() (after): '%d'",Handlers.size());
-                  //Sytem.out.println(formatResult);
+                  //formatResult=String.format("Handlers.size() (after): '%d'",Handlers.size());
+                  //System.out.println(formatResult);
                 };
             } catch (Exception ex) {
                 //sErrorMessage=ex.getMessage();
@@ -202,20 +193,13 @@ public class ModelBase
 
 
         protected void onNotifyPropertyChanged(String propertyName) {
-
           String sErrorMessage, formatResult;
-//          IPropertyChanged proc;
-
           
             try {
-              //if (propertyName=="SomeInteger") {
-              //
-              //  String.format(formatResult,"OnNotifyPropertyChanged: propertyName (before): '%s'",propertyName);
+              //  formatResult=String.format("OnNotifyPropertyChanged: propertyName (before): '%s'",propertyName);
               //  Sytem.out.println(formatResult);
-              //};
 
               for (IPropertyChanged i : Handlers)  {
-
                    i.propertyChanged(propertyName);
               };
             } catch (Exception ex) {
@@ -223,29 +207,11 @@ public class ModelBase
                 System.out.println(sErrorMessage);
                 Log.write(ex,Level.ALL);
             } finally {
-               //if (propertyName=="SomeInteger") {
-               //
                //formatResult=String.format("OnNotifyPropertyChanged: propertyName (after): '%s'",propertyName);
-               //  Sytem.out.println(formatResult);
-               //};
+               //Sytem.out.println(formatResult);
             };
         };
 
-//        public void testDelegate()
-//        {
-//            IStringDisplay[] items = new IStringDisplay[3];
-//
-//            // build the delegates
-//            items[0] = (IStringDisplay) ST_DEL.build(new Class1(),"show");
-//            items[1] = (IStringDisplay) ST_DEL.build(new Class1()2,"display");
-//            items[2] = (IStringDisplay) ST_DEL.build(Class3.class,"staticDisplay");
-//
-//            // call the delegates
-//            for(int i = 0; i < items.length; i++) {
-//                items[i].doDisplay("test");
-//            }
-//        }
-//
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="XML IO">
