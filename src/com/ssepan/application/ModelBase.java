@@ -262,41 +262,4 @@ public class ModelBase
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="INI IO">
-    public static Boolean WriteIni
-    (
-        String filepath,
-        ModelBase model
-    ) 
-        throws FileNotFoundException
-    {
-//        Wini ini = new Wini(new File("C:\\Users\\sdkca\\Desktop\\myinifile.ini"));
-//
-//        ini.put("block_name", "property_name", "value");
-//        ini.put("block_name", "property_name_2", 45.6);
-//        ini.store();
-        
-        return true;
-    }
-
-    
-    public static Boolean ReadIni
-    (
-        String filepath,
-        ModelBase model
-    ) 
-        throws FileNotFoundException
-    {
-//        Wini ini = new Wini(new File("C:\\Users\\sdkca\\Desktop\\myinifile.ini"));
-//        
-//        int age = ini.get("owner", "age", int.class);
-//        double height = ini.get("owner", "height", double.class);
-//        String server = ini.get("database", "server");
-
-        
-        return true;
-    }
-
-    // </editor-fold>
-
 }
