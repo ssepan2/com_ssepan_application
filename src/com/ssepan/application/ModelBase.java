@@ -2,13 +2,10 @@ package com.ssepan.application;
 
 import java.beans.*;
 import java.io.*;
-//import java.io.File;
 import java.util.*; 
 import java.util.logging.Level; 
 //import javax.swing.JComponent;
 import com.ssepan.utility.*;
-//NOTE:may reference libini4j-java
-import org.ini4j.*;//https://ourcodeworld.com/articles/read/839/how-to-read-parse-from-and-write-to-ini-files-easily-in-java
 
 /**
  *
@@ -22,6 +19,8 @@ public class ModelBase
     
     public static Boolean DIRTY_NEW = false;
     public static String KEY_NEW = "(new)";
+
+    public static String C_XML_FILE = "mvcmodel.xml";
 
     protected List<IPropertyChanged> Handlers;
     
@@ -215,7 +214,7 @@ public class ModelBase
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="XML IO">
-    public static void Write
+    public static Boolean Write
     (
         String filepath,
         ModelBase model
@@ -235,15 +234,16 @@ public class ModelBase
         { 
             encoder.writeObject(model);
         }
+        return true;
     }
     
-    public static ModelBase Read
+    public static Boolean Read
     (
-        String filepath
+        String filepath,
+        ModelBase model
     ) 
         throws FileNotFoundException
     {
-        ModelBase returnValue;
         try 
         (
             XMLDecoder decoder = new XMLDecoder
@@ -255,10 +255,10 @@ public class ModelBase
             )
         )
         {        
-            returnValue = (ModelBase)decoder.readObject();
+            model = (ModelBase)decoder.readObject();
         }
         
-        return returnValue;
+        return true;
     }
     // </editor-fold>
 
