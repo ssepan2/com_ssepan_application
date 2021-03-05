@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="dist/Com.Ssepan.Application.jar"/>
+	<classpathentry kind="lib" path="lib/CopyLibs/org-netbeans-modules-java-j2seproject-copylibstask.jar"/>
+	<classpathentry kind="lib" path="lib/ini4j-0.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/org-netbeans-libs-ini4j.jar"/>
+	<classpathentry kind="src" path="/Com.Ssepan.Utility"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

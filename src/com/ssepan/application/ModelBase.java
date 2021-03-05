@@ -20,7 +20,7 @@ public class ModelBase
     public static Boolean DIRTY_NEW = false;
     public static String KEY_NEW = "(new)";
 
-    public static String C_XML_FILE = "mvcmodel.xml";
+    public static String C_XML_FILE = "mvcmodel_%s.xml";
 
     protected List<IPropertyChanged> Handlers;
     
@@ -29,8 +29,8 @@ public class ModelBase
     // <editor-fold defaultstate="collapsed" desc="Constructors">
     public ModelBase()
     {
-        String sStatusMessage="";
-        String sErrorMessage="";
+        //String sStatusMessage="";
+        //String sErrorMessage="";
 
         try {
             Handlers = new ArrayList<IPropertyChanged>();
@@ -51,8 +51,8 @@ public class ModelBase
     private String Key = KEY_NEW;
     public String getKey()
     {
-        String sStatusMessage="";
-        String sErrorMessage="";
+        //String sStatusMessage="";
+        //String sErrorMessage="";
         String returnValue="";
 
         try {
@@ -68,13 +68,13 @@ public class ModelBase
     }
     public void setKey(String value)
     {
-        String sStatusMessage="";
-        String sErrorMessage="";
+        //String sStatusMessage="";
+        //String sErrorMessage="";
 
         try {
             KeyOld = Key;
             Key = value;
-            System.out.println(String.format("setKey: before='%s', after='%s'",KeyOld,Key));
+            //System.out.println(String.format("setKey: before='%s', after='%s'",KeyOld,Key));
             notifyPropertyChanged("Key");
             setDirty(true);
         } catch (Exception ex) {
@@ -90,8 +90,8 @@ public class ModelBase
     private Boolean Dirty = DIRTY_NEW;
     public Boolean isDirty()
     {
-        String sStatusMessage="";
-        String sErrorMessage="";
+        //String sStatusMessage="";
+        //String sErrorMessage="";
         Boolean returnValue=false;
 
         try {
@@ -107,13 +107,13 @@ public class ModelBase
     }
     public void setDirty(Boolean value)
     {
-        String sStatusMessage="";
-        String sErrorMessage="";
+        //String sStatusMessage="";
+        //String sErrorMessage="";
 
         try {
             DirtyOld = Dirty;
             Dirty = value;
-            System.out.println(String.format("setDirty: before='%s', after='%s'",DirtyOld.toString(),Dirty.toString()));
+            //System.out.println(String.format("setDirty: before='%s', after='%s'",DirtyOld.toString(),Dirty.toString()));
             notifyPropertyChanged("Dirty");
         } catch (Exception ex) {
             //sErrorMessage=ex.getMessage();
@@ -127,7 +127,8 @@ public class ModelBase
 
     // <editor-fold defaultstate="collapsed" desc="PropertyChangeSupport">
         protected void notifyPropertyChanged(String propertyName) {
-          String sErrorMessage, formatResult;
+            //String sErrorMessage; 
+            //String formatResult;
 
           try {
                //formatResult=String.format("PropertyChanged firing: '%s'",propertyName);
@@ -145,7 +146,8 @@ public class ModelBase
         };
 
         public void addHandler(IPropertyChanged f) {
-          String sErrorMessage, formatResult;
+            //String sErrorMessage; 
+            //String formatResult;
           
             try {
               //formatResult=String.format("Handlers.size() (before): '%d'",Handlers.size());
@@ -167,7 +169,8 @@ public class ModelBase
         };
 
         public void removeHandler(IPropertyChanged f) {
-            String sErrorMessage, formatResult;
+            //String sErrorMessage; 
+            //String formatResult;
             IPropertyChanged extracted;
             
             try {
@@ -192,7 +195,8 @@ public class ModelBase
 
 
         protected void onNotifyPropertyChanged(String propertyName) {
-          String sErrorMessage, formatResult;
+          String sErrorMessage;
+          //String formatResult;
           
             try {
               //  formatResult=String.format("OnNotifyPropertyChanged: propertyName (before): '%s'",propertyName);
@@ -214,7 +218,7 @@ public class ModelBase
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="XML IO">
-    public static Boolean Write
+    public static Boolean WriteXml
     (
         String filepath,
         ModelBase model
@@ -237,7 +241,7 @@ public class ModelBase
         return true;
     }
     
-    public static Boolean Read
+    public static ModelBase ReadXml
     (
         String filepath,
         ModelBase model
@@ -258,7 +262,7 @@ public class ModelBase
             model = (ModelBase)decoder.readObject();
         }
         
-        return true;
+        return model;
     }
     // </editor-fold>
 
